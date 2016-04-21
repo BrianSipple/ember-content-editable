@@ -2,5 +2,9 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-content-editable'
+  name: 'ember-content-editable',
+
+  isDevelopingAddon () {
+    return true;
+  },
 };

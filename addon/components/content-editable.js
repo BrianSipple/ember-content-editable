@@ -57,7 +57,7 @@ export default Ember.Component.extend({
     this.$().on('paste', (event) => {
       this.handlePaste(event, this);
     });
-    
+
     if (this.get('autofocus')) {
       this.$().focus();
     }
@@ -129,7 +129,8 @@ export default Ember.Component.extend({
       return false;
     }
 
-    this.sendAction('key-up', this.get('value'), event);
+    // this.sendAction('key-up', this.get('value'), event);
+    this.get('key-up')(this.get('value'), event);
   },
 
   /* Events */
@@ -194,7 +195,8 @@ export default Ember.Component.extend({
       }
     }
 
-    this.sendAction('key-down', this.get('value'), event);
+    // this.sendAction('key-down', this.get('value'), event);
+    this.get('key-down')(this.get('value'), event);
   },
 
   keyPress(event) {
@@ -225,22 +227,26 @@ export default Ember.Component.extend({
       }
     }
 
-    this.sendAction('key-press', this, event);
+    this.get('key-press')(this, event);
   },
 
   focusIn(event) {
-    this.sendAction('focus-in', this, event);
+    // this.sendAction('focus-in', this, event);
+    this.get('focus-in')(this, event);
   },
 
   focusOut(event) {
-    this.sendAction('focus-out', this, event);
+    // this.sendAction('focus-out', this, event);
+    this.get('focus-out')(this, event);
   },
 
   mouseEnter(event) {
-    this.sendAction('mouse-enter', this, event);
+    // this.sendAction('mouse-enter', this, event);
+    this.get('mouse-enter')(this, event);
   },
 
   mouseLeave(event) {
-    this.sendAction('mouse-leave', this, event);
+    // this.sendAction('mouse-leave', this, event);
+    this.get('mouse-leave')(this, event);
   },
 });
