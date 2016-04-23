@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
@@ -5,6 +6,8 @@ function getPlaceholderContent(element) {
   let placeholderContent = window.getComputedStyle(element, '::before').content;
   return placeholderContent.replace(/\"/g, ""); // presence of quotes varies in phantomjs vs chrome
 }
+
+const { run } = Ember;
 
 
 moduleForComponent('content-editable', 'Integration | Component | content editable', {
@@ -55,6 +58,20 @@ test('placeholder renders and stays on focus until the element has content', fun
   assert.equal(getPlaceholderContent(element), "", "Placeholder not shown when content present");
 });
 
+test('`clearPlaceholderOnFocus` option removes placeholder on intial focus', function (assert) {
+  assert.expect(2);
+  this.set("value", "");
+  this.render(hbs`{{content-editable value=value placeholder="bananas" clearPlaceholderOnFocus="true"}}`);
+  let $element = this.$('.ember-content-editable');
+  let element = $element[0];
+
+  // Check CSS output
+  assert.equal(getPlaceholderContent(element), 'bananas', "CSS before:content matches placeholder");
+
+  $element.focus();
+
+  assert.equal(getPlaceholderContent(element), "", "CSS before: placeholder content removed when `clearPlaceholderOnFocus` is used");
+});
 
 test('Value updated when input changes', function(assert) {
   assert.expect(2);
