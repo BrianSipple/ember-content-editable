@@ -58,8 +58,8 @@ test('`clearPlaceholderOnFocus` option removes placeholder on intial focus', fun
   assert.expect(2);
   this.set("value", "");
   this.render(hbs`{{content-editable tabindex="0" value=value placeholder="bananas" clearPlaceholderOnFocus="true"}}`);
-  let $element = this.$('.ember-content-editable');
-  let element = $element[0];
+  const $element = this.$('.ember-content-editable');
+  const element = $element[0];
 
   // Check CSS output
   assert.equal(getPlaceholderContent(element), 'bananas', "CSS before:content matches placeholder");
