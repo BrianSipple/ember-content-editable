@@ -2,7 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 function getPlaceholderContent(element) {
-  let placeholderContent = window.getComputedStyle(element, ':before').content;
+  let placeholderContent = window.getComputedStyle(element, '::before').content;
   return placeholderContent.replace(/\"/g, ""); // presence of quotes varies in phantomjs vs chrome
 }
 
@@ -32,8 +32,8 @@ test('it renders', function(assert) {
   assert.equal(this.$().text().trim(), 'template block text');
 });
 
-test('placeholder renders', function(assert) {
-  assert.expect(3);
+test('placeholder renders and stays on focus until the element has content', function(assert) {
+  assert.expect(5);
   this.set("value", "");
   this.render(hbs`{{content-editable value=value placeholder="bananas"}}`);
   const $element = this.$('.ember-content-editable');
@@ -45,10 +45,16 @@ test('placeholder renders', function(assert) {
   // Check CSS output
   assert.equal(getPlaceholderContent(element), 'bananas', "CSS before:content matches placeholder");
 
+  $element.focus();
+
+  assert.equal($element.attr('placeholder'), "bananas", "DOM attr has correct placeholder");
+  assert.equal(getPlaceholderContent(element), 'bananas', "CSS before:content matches placeholder");
+
   // Check placeholder hidden when value is present
   this.set("value", "zebra");
   assert.equal(getPlaceholderContent(element), "", "Placeholder not shown when content present");
 });
+
 
 test('Value updated when input changes', function(assert) {
   assert.expect(2);

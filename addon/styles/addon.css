@@ -1,8 +1,13 @@
-[contenteditable=true]:empty:not(:focus):before {
+.ember-content-editable[contenteditable=true]:empty:not(:focus):before,
+.ember-content-editable[contenteditable=true]:focus:empty:before {
   content: attr(placeholder);
 }
 
-[contenteditable=true] {
+.ember-content-editable.clear-on-focus[contenteditable=true]:focus:empty::before {
+  content: '';
+}
+
+.ember-content-editable[contenteditable=true] {
   cursor: text;
 }
 
