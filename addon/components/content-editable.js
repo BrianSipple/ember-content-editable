@@ -31,6 +31,7 @@ export default Ember.Component.extend({
   isText: null,
   type: null,
   readonly: null,
+  focusWhen: null,
   allowNewlines: true,
   autofocus: false,
   clearPlaceholderOnFocus: false,
@@ -60,6 +61,12 @@ export default Ember.Component.extend({
     });
 
     if (this.get('autofocus')) {
+      this.$().focus();
+    }
+  }),
+
+  toggleFocus: Ember.on('didReceiveAttrs', function () {
+    if (this.get('focusWhen')) {
       this.$().focus();
     }
   }),
