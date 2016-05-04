@@ -43,6 +43,7 @@ disabled             | If true, element can't be edited, focused or tabbed to | 
 maxlength            | Maximum length of the input, in characters     | none
 allowNewlines        | If false, linebreaks can't be entered          | true
 autofocus            | If true, the element will be focused once inserted into the document | false
+focusWhen            | Any dynamic value. If set, the element will toggle focus according this attribute's truthiness | none
 clearPlaceholderOnFocus | If true, the placeholder will be cleared as soon as the element gains focus (even if no content is present yet) | false
 
 ##### isText Deprecation
